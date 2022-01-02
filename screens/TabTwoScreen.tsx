@@ -1,32 +1,74 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import Card from '../components/ClassesInfoCard'
+import Modal from '../components/classInfoModel'
+import Root from '../components/Root';
 
 export default function TabTwoScreen() {
+
+  const initState = {
+    isModalOpen: false,
+    modal: {
+      title: '',
+      describtion: '',
+      link: '',
+      timing: new Date()
+    }
+  }
+
+  const [state, setState] = React.useState(initState)
+
+  const data = [{
+    title: 'Hello',
+    describtion: 'qwerty',
+    link: 'https://www.google.com',
+    timing: new Date(),
+    id: '1001'
+  }, {
+    title: 'Hi',
+    describtion: 'qwerty keyboard',
+    link: 'https://www.google.com',
+    timing: new Date(),
+    id: '1002'
+  }]
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
+    <>
+      <Modal
+        title={state.modal.title}
+        timing={state.modal.timing}
+        describtion={state.modal.describtion}
+        link={state.modal.link}
+        closeHandler={() => setState(initState)}
+        openModal={state.isModalOpen}
+      />
+      <ScrollView
+        style={{ padding: 12 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {
+          data.map((item, _) => (
+            <Card
+              key={`${_}_Notifactions`}
+              title={item.title}
+              describtion={item.describtion}
+              timing={item.timing}
+              pressHandler={() => {
+                setState({
+                  modal: {
+                    title: item.title,
+                    describtion: item.describtion,
+                    link: item.link,
+                    timing: item.timing,
+                  },
+                  isModalOpen: true
+                })
+              }}
+            />
+          ))
+        }
+      </ScrollView>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

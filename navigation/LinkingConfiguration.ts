@@ -6,17 +6,29 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Home: {
             screens: {
               TabOneScreen: 'one',
-            },
+            }
           },
-          TabTwo: {
+          Notifications: {
             screens: {
               TabTwoScreen: 'two',
-            },
+            }
           },
-        },
+          Classes: {
+            screens: {
+              ClassesScreen: 'three',
+            }
+          },
+          More: {
+            screens: {
+              MoreScreen: 'four',
+              TimetableScreen: 'five',
+              AssignmentScreen: 'Six'
+            }
+          },
+        }
       },
       NotFound: '*',
     },
